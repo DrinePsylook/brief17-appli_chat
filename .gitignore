@@ -1,5 +1,9 @@
-/node_modules
-/staticfiles
+# Node modules
+node_modules/
+
+# Static files générés (pas vos fichiers source)
+staticfiles/
+static/CACHE/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -9,4 +9,6 @@ def index(request):
 
 
 def room(request, room_name):
+    if not request.user.is_authenticated:
+        return redirect("login")
     return render(request, "chat/room.html", {"room_name": room_name})

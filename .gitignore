@@ -1,6 +1,4 @@
-/images
 /node_modules
-/static
 /staticfiles
 
 # Byte-compiled / optimized / DLL files

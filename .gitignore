@@ -7,6 +7,8 @@ node_modules/
 # Static files générés (pas vos fichiers source)
 staticfiles/
 static/CACHE/
+web/static/CACHE/
+web/static/src/output.css
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

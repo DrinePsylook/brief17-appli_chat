@@ -1,0 +1,10 @@
+Django
+django-compressor
+dotenv
+channels
+channels_redis
+daphne
+Pillow
+psycopg[binary]
+requests
+selenium

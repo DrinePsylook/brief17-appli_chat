@@ -1,16 +1,48 @@
 services:
   web:
-    build: .
+    build: 
+      context: ./web
+      dockerfile: Dockerfile
     container_name: mychat_web
     command: daphne -b 0.0.0.0 -p 8000 mychat.asgi:application
     volumes:
-      - .:/app
+      - ./web:/app
     depends_on:
       - redis
+      - ml_service
     environment:
       - DJANGO_SETTINGS_MODULE=mychat.settings
       - DEBUG=True
     # Réseau pour la communication interne
+    networks:
+      - mychat_network
+
+  ml_service:
+    build:
+      context: ./ml_service
+      dockerfile: Dockerfile
+    container_name: mychat_ml_service
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./ml_service:/app
+    depends_on:
+      - db_ml
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db_ml:5432/face_recognition_db
+    networks:
+      - mychat_network
+
+  db_ml:
+    image: postgres:13
+    container_name: db_ml
+    ports:
+      - "5433:5432" 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: face_recognition_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     networks:
       - mychat_network
 
@@ -21,7 +53,7 @@ services:
       - "80:80"  # Nginx écoute sur le port 80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./static:/var/www/static
+      - ./web/static:/var/www/static 
     depends_on:
       - web
     networks:
@@ -41,9 +73,12 @@ services:
     volumes:
       - .:/app
     command: >
-      npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch
+      npx tailwindcss -i ./web/static/src/input.css -o ./web/static/src/output.css --watch
     networks:
       - mychat_network
+
+volumes:
+  postgres_data:
 
 # Réseau personnalisé
 networks:

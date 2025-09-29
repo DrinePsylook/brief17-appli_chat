@@ -1,0 +1,36 @@
+{% extends 'chat/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-center text-gray-800">Vérification faciale</h2>
+        <p class="text-center text-gray-600">
+            Veuillez centrer votre visage dans le cadre ci-dessous pour vous connecter.
+        </p>
+
+        <div class="relative w-full rounded-lg overflow-hidden border-2 border-dashed border-gray-300">
+            <video id="webcam-video" class="w-full h-auto transform scale-x-[-1]" autoplay playsinline></video>
+            <canvas id="webcam-canvas" class="hidden"></canvas>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-2/3 h-2/3 border-4 border-white rounded-full opacity-50"></div> 
+            </div>
+        </div>
+
+        <button id="capture-button" class="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200">
+            Vérifier mon identité
+        </button>
+        <p id="status-message" class="text-center mt-4 text-sm text-gray-600"></p>
+
+        <div class="text-center">
+            <a href="{% url 'auth:login' %}" class="text-sm text-gray-500 hover:text-gray-700">
+                Retour à la connexion
+            </a>
+        </div>
+
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    </div>
+</div>
+
+<script src="{% static 'js/face_capture.js' %}"></script>
+{% endblock %}

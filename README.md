@@ -79,3 +79,9 @@ Pour arrêter et supprimer les conteneurs, les réseaux et les volumes créés p
 ```bash
 docker-compose down
 ```
+
+**4. Monitoring**
+Utilisation de ML flow sur le port 5001 (le 5000 est déjà utilisé) : 
+```bash
+mlflow ui --port 5001
+```

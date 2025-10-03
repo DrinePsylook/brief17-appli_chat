@@ -14,6 +14,7 @@ ML_API_URL = 'http://ml_service:8000/face'  # URL de l'API de reconnaissance fac
 def login_page(resquest):
     form = forms.LoginForm()
     message = ''
+    User = get_user_model()
     if resquest.method == 'POST':
         print("=== DEBUG LOGIN ===")
         print(f"POST request reçu")
@@ -25,7 +26,6 @@ def login_page(resquest):
             print(f"Email: {email}")
             
             # Debug: vérifier si l'utilisateur existe
-            User = get_user_model()
             try:
                 user = User.objects.get(email=email)
                 print(f"Utilisateur trouvé: {user.username} (ID: {user.pk})")
@@ -43,12 +43,8 @@ def login_page(resquest):
                 password=password,
             )
             
-            print(f"Authentification: user_auth = {user_auth}")
-            
             if user_auth is not None:
                 print(f"✅ Authentification réussie")
-                print(f"face_auth_enabled: {user_auth.face_auth_enabled}")
-                print(f"face_image_registered: {user_auth.face_image_registered}")
                 
                 # Vérifier si l'authentification faciale est activée
                 if user_auth.face_auth_enabled:

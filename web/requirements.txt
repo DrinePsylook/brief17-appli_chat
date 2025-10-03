@@ -6,5 +6,5 @@ channels_redis
 daphne
 Pillow
 psycopg[binary]
+pytest-django
 requests
-selenium

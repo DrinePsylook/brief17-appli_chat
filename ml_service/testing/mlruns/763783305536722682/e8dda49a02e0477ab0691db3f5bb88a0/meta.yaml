@@ -1,0 +1,14 @@
+artifact_uri: file:///var/www/html/cours/brief17-appli_chat/ml_service/testing/mlruns/763783305536722682/e8dda49a02e0477ab0691db3f5bb88a0/artifacts
+end_time: 1759413795255
+entry_point_name: ''
+experiment_id: '763783305536722682'
+lifecycle_stage: active
+run_id: e8dda49a02e0477ab0691db3f5bb88a0
+run_name: Tolerance_0.6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1759413795214
+status: 3
+tags: []
+user_id: psyia
